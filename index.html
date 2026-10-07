@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WINTER Bday info生咖資訊網</title>
-  <!-- Google Fonts: Pixel & Retro Sans -->
+  <title>WINTER生咖資訊網</title>
+  
+  <!-- 引入指定字型: Chocolate Classical Sans (中) & Cossette Titre (英) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&family=Cossette+Titre:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --win-bg: #c0c0c0;
-      --win-light: #ffffff;
-      --win-dark: #808080;
-      --win-darkest: #000000;
-      --win-blue: #000080;
-      --win-blue-light: #1084d0;
-      --win-text: #222222;
-      --desktop-bg: #008080; /* 經典 Windows 98 藍綠色 */
+      /* 西部荒野 × 摩卡棕 × 莫蘭迪低飽和色系 */
+      --mocha-deep: #251b16;         /* 頁面背景深摩卡 */
+      --mocha-card-bg: #352720;     /* 頂部外框深褐 */
+      --mocha-border: #523f35;      /* 莫蘭迪褐木邊框 */
+      --morandi-light: #fcfaf7;     /* GitHub 卡片主體 (燕麥白) */
+      --morandi-gray: #f4eee7;      /* 檔案列表交替淡底色 */
+      --morandi-border: #d8ccc1;    /* 檔案分隔線 */
+      --morandi-text: #2c201a;      /* 深摩卡內文字 */
+      --morandi-sub: #746358;       /* 次要灰色文字 */
+      --leather-accent: #9a6645;    /* 西部皮革金棕色 */
+      --leather-hover: #b47953;
+      --gold-star: #c89655;
     }
 
     * {
@@ -27,341 +33,489 @@
     }
 
     body {
-      background-color: var(--desktop-bg);
-      font-family: 'Noto Sans TC', 'DotGothic16', monospace, sans-serif;
-      color: var(--win-text);
+      background-color: var(--mocha-deep);
+      /* 英文優先套用 Cossette Titre，中文套用 Chocolate Classical Sans */
+      font-family: 'Cossette Titre', 'Chocolate Classical Sans', serif, sans-serif;
+      color: var(--morandi-text);
       min-height: 100vh;
-      padding-bottom: 50px; /* 給底部工作列空間 */
+      padding: 16px 12px 64px 12px;
     }
 
-    /* 頂部 Retro 瀏覽器視窗導航條 */
-    .browser-frame {
-      max-width: 1080px;
-      margin: 20px auto;
-      background: var(--win-bg);
-      border: 3px solid;
-      border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
-      box-shadow: 2px 2px 0px rgba(0,0,0,0.4);
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
     }
 
-    /* 視窗頂部 Title Bar */
-    .title-bar {
-      background: linear-gradient(90deg, var(--win-blue), var(--win-blue-light));
-      color: #fff;
-      padding: 4px 8px;
-      font-size: 0.95rem;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      letter-spacing: 0.5px;
-    }
-
-    .title-bar-controls button {
-      background: var(--win-bg);
-      border: 2px solid;
-      border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
-      width: 20px;
-      height: 20px;
-      font-size: 11px;
-      font-weight: bold;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    /* 導航控制列 (上一頁、下一頁、語言切換) */
-    .nav-bar {
+    /* 頂部瀏覽器工具列（返回、前進、重整、語言選擇） */
+    .top-browser-bar {
+      background: var(--mocha-card-bg);
+      border: 1px solid var(--mocha-border);
+      border-radius: 8px 8px 0 0;
+      padding: 8px 12px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      background: var(--win-bg);
-      border-bottom: 2px solid var(--win-dark);
+      gap: 10px;
       flex-wrap: wrap;
+      color: #ede5dd;
     }
 
-    .retro-btn {
-      background: var(--win-bg);
-      border: 2px solid;
-      border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+    .nav-btn {
+      background: #46342b;
+      border: 1px solid var(--mocha-border);
+      color: #ede5dd;
       padding: 4px 10px;
-      font-size: 0.85rem;
+      border-radius: 5px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
       font-family: inherit;
+      font-size: 0.85rem;
+      transition: background 0.15s;
     }
 
-    .retro-btn:active {
-      border-color: var(--win-darkest) var(--win-light) var(--win-light) var(--win-darkest);
-      transform: translate(1px, 1px);
+    .nav-btn:hover {
+      background: var(--leather-accent);
     }
 
     .address-bar {
       flex: 1;
       min-width: 200px;
-      background: #fff;
-      border: 2px inset var(--win-dark);
-      padding: 3px 8px;
+      background: #1c1410;
+      border: 1px solid var(--mocha-border);
+      border-radius: 4px;
+      color: #cfbeaf;
+      padding: 4px 10px;
       font-size: 0.85rem;
-      font-family: 'Courier New', monospace;
-      color: #333;
+      font-family: monospace;
     }
 
-    .lang-select-box {
+    .lang-box {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       font-size: 0.85rem;
     }
 
-    .lang-select-box select {
-      background: #fff;
-      border: 2px inset var(--win-dark);
-      padding: 2px 4px;
+    .lang-box select {
+      background: #46342b;
+      color: #ede5dd;
+      border: 1px solid var(--mocha-border);
+      padding: 3px 6px;
+      border-radius: 4px;
       font-family: inherit;
       outline: none;
     }
 
-    /* 視窗主內容區塊 */
-    .window-content {
-      padding: 20px;
-      background: #efefef;
+    /* GitHub Repository 外框主體 */
+    .repo-card {
+      background: var(--morandi-light);
+      border: 1px solid var(--morandi-border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
     }
 
-    /* 主打焦點：WINTER 虛擬桌機 */
-    .highlight-card {
-      background: var(--win-bg);
-      border: 2px solid;
-      border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
-      padding: 16px;
-      margin-bottom: 24px;
-      box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+    /* GitHub 檔案列表清單 (Files Table) */
+    .file-table-wrap {
+      background: #ffffff;
+      border-bottom: 1px solid var(--morandi-border);
     }
 
-    .highlight-header {
-      background: #000080;
-      color: #fff;
-      padding: 4px 8px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      font-size: 1.05rem;
-    }
-
-    .highlight-body {
+    .file-table-header {
+      background: var(--morandi-gray);
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      color: var(--morandi-sub);
+      font-weight: 700;
       display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid var(--morandi-border);
     }
 
-    .highlight-desc {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* 網頁快速入口 (Grid) */
-    .links-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .sub-card {
-      background: var(--win-bg);
-      border: 2px solid;
-      border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
-      padding: 12px;
+    .file-row {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: space-between;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--morandi-gray);
+      text-decoration: none;
+      color: var(--morandi-text);
+      transition: background 0.15s;
     }
 
-    .sub-card h3 {
-      font-size: 1rem;
-      margin-bottom: 6px;
-      color: var(--win-blue);
-      border-bottom: 1px dotted var(--win-dark);
-      padding-bottom: 4px;
+    .file-row:last-child {
+      border-bottom: none;
     }
 
-    .sub-card p {
-      font-size: 0.85rem;
-      color: #444;
-      line-height: 1.4;
-      margin-bottom: 14px;
+    .file-row:hover {
+      background: #f7efe6;
+      color: var(--leather-accent);
     }
 
-    /* 生咖圖文展示區域 (生咖資訊、基本應援物、LuckyDraw) */
-    .info-section-title {
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: var(--win-blue);
-      margin-bottom: 12px;
+    .file-name {
       display: flex;
       align-items: center;
       gap: 8px;
+      font-weight: 600;
     }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
+    .file-commit {
+      color: var(--morandi-sub);
+      font-size: 0.82rem;
     }
 
-    .info-box {
-      background: var(--win-bg);
-      border: 2px solid;
-      border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
-      padding: 12px;
+    /* GitHub README 閱讀檢視區域 */
+    .readme-wrapper {
+      padding: 24px;
     }
 
-    .info-box-title {
-      font-weight: bold;
-      font-size: 1rem;
-      margin-bottom: 8px;
-      background: #808080;
+    .readme-tabs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--morandi-border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    .readme-tabs-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--morandi-text);
+    }
+
+    .readme-tab-active {
+      border-bottom: 2px solid var(--leather-accent);
+      padding-bottom: 8px;
+      margin-bottom: -9px;
+      color: var(--leather-accent);
+    }
+
+    /* 管理員專用橫幅 */
+    .admin-banner {
+      display: none;
+      background: #f7eee4;
+      border: 1px dashed var(--leather-accent);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* WINTER 桌機核心展示卡片 (Hero Banner) */
+    .hero-banner {
+      background: linear-gradient(135deg, #3d2c23 0%, #291c16 100%);
+      color: #faf5ef;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 30px;
+      border: 1px solid var(--mocha-border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-tag {
+      background: var(--leather-accent);
       color: #fff;
-      padding: 2px 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 4px;
+      width: fit-content;
+      letter-spacing: 0.5px;
     }
 
-    .info-image-container {
+    .hero-title {
+      font-size: 1.55rem;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-desc {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #e2d4c5;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--leather-accent);
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: bold;
+      align-self: flex-start;
+      margin-top: 6px;
+      transition: background 0.15s;
+    }
+
+    .btn-action:hover {
+      background: var(--leather-hover);
+    }
+
+    /* 資訊框格群 (生咖資訊、應援物、LuckyDraw 與動態新增框格) */
+    .section-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--morandi-border);
+      padding-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      color: var(--morandi-text);
+      font-weight: 700;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    /* 個別框格 Card */
+    .info-card {
+      background: #ffffff;
+      border: 1px solid var(--morandi-border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    .info-card-header {
+      background: var(--morandi-gray);
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--morandi-text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--morandi-border);
+    }
+
+    .delete-card-btn {
+      display: none;
+      background: #8b3a3a;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    /* 多圖輪播相框容器 */
+    .carousel-wrap {
+      position: relative;
       width: 100%;
-      height: 200px;
-      background: #000;
-      border: 2px inset var(--win-dark);
+      height: 220px;
+      background: #19120e;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      margin-bottom: 10px;
     }
 
-    .info-image-container img {
+    .carousel-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .info-text-content {
-      background: #fff;
-      border: 2px inset var(--win-dark);
-      padding: 8px;
-      font-size: 0.85rem;
-      min-height: 90px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    /* 編輯模式指示器 */
-    .admin-bar {
-      display: none;
-      background: #ffffcc;
-      border: 2px dashed #ff9900;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(37, 27, 22, 0.8);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 30px;
+      height: 36px;
+      display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      user-select: none;
+      transition: background 0.15s;
     }
 
-    .editable-active {
-      outline: 2px dashed #000080 !important;
-      background-color: #fffff0 !important;
+    .carousel-nav:hover {
+      background: var(--leather-accent);
     }
 
-    /* 底部 Windows 工作列 */
+    .carousel-prev { left: 6px; border-radius: 4px 0 0 4px; }
+    .carousel-next { right: 6px; border-radius: 0 4px 4px 0; }
+
+    .carousel-indicator {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .img-edit-prompt {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(37, 27, 22, 0.85);
+      color: #ffd54f;
+      font-size: 0.7rem;
+      padding: 3px 6px;
+      border-radius: 3px;
+      display: none;
+      cursor: pointer;
+    }
+
+    .info-card-text {
+      background: #fdfbf7;
+      padding: 14px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--morandi-text);
+      min-height: 110px;
+      white-space: pre-wrap;
+      border: 1px dashed transparent;
+      outline: none;
+    }
+
+    .editing-active {
+      border: 1px dashed var(--leather-accent) !important;
+      background: #fff9e6 !important;
+    }
+
+    /* 底部 Start 工作列 (Taskbar) */
     .taskbar {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 38px;
-      background: var(--win-bg);
-      border-top: 2px solid var(--win-light);
+      height: 42px;
+      background: var(--mocha-card-bg);
+      border-top: 1px solid var(--mocha-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 6px;
+      padding: 0 14px;
       z-index: 9999;
-      box-shadow: 0 -1px 0 var(--win-dark);
+      color: #f7f3ee;
     }
 
-    .taskbar-left {
-      display: flex;
+    .taskbar-btn {
+      background: #46342b;
+      border: 1px solid var(--mocha-border);
+      color: #ede5dd;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-family: inherit;
     }
 
-    .start-btn {
-      font-weight: bold;
+    .taskbar-btn:hover {
+      background: var(--leather-accent);
+    }
+
+    /* 點擊 Start 向上展開的選單 */
+    .start-menu {
+      display: none;
+      position: fixed;
+      bottom: 48px;
+      left: 14px;
+      background: var(--morandi-light);
+      border: 1px solid var(--mocha-border);
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      width: 250px;
+      overflow: hidden;
+      z-index: 10000;
+    }
+
+    .start-menu-header {
+      background: var(--mocha-card-bg);
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--mocha-border);
+    }
+
+    .start-item {
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 3px 8px;
+      gap: 10px;
+      padding: 10px 14px;
+      color: var(--morandi-text);
+      text-decoration: none;
       font-size: 0.9rem;
+      cursor: pointer;
+      border-bottom: 1px solid #ebdcd0;
+      transition: background 0.15s;
+    }
+
+    .start-item:last-child {
+      border-bottom: none;
+    }
+
+    .start-item:hover {
+      background: #f2e7dc;
+      color: var(--leather-accent);
     }
 
     .taskbar-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       font-size: 0.85rem;
-      border: 2px inset var(--win-dark);
-      padding: 2px 8px;
-      background: #d4d0c8;
-    }
-
-    .copyright-tag {
-      font-family: 'VT323', monospace;
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
     }
 
     @media (max-width: 600px) {
-      .browser-frame {
-        margin: 5px;
-      }
-      .nav-bar {
-        font-size: 0.8rem;
-      }
-      .highlight-body {
-        flex-direction: column;
-      }
+      body { padding: 8px 6px 50px 6px; }
+      .top-browser-bar { font-size: 0.8rem; }
+      .file-commit { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Retro 瀏覽器主視窗 -->
-  <div class="browser-frame">
-    <!-- Title Bar -->
-    <div class="title-bar">
-      <span id="txt-app-title">WINTER生咖資訊網 - [Winter Cafe Information Portal]</span>
-      <div class="title-bar-controls">
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
-        <button onclick="window.close()">✕</button>
-      </div>
-    </div>
-
-    <!-- 導航列與功能控制 -->
-    <div class="nav-bar">
-      <button class="retro-btn" onclick="history.back()" title="Back">◀ <span id="txt-back">後退</span></button>
-      <button class="retro-btn" onclick="history.forward()" title="Forward"><span id="txt-forward">前進</span> ▶</button>
-      <button class="retro-btn" onclick="location.reload()" title="Reload">↻ <span id="txt-refresh">重新整理</span></button>
-      <input type="text" class="address-bar" readonly value="https://winter-bday-hub.internal/cafe-info">
+  <div class="container">
+    <!-- 頂部瀏覽器模擬控制列 -->
+    <div class="top-browser-bar">
+      <button class="nav-btn" onclick="history.back()" title="Back">◀ <span id="txt-back">後退</span></button>
+      <button class="nav-btn" onclick="history.forward()" title="Forward"><span id="txt-forward">前進</span> ▶</button>
+      <button class="nav-btn" onclick="location.reload()" title="Reload">↻ <span id="txt-reload">重新整理</span></button>
+      <div class="address-bar">https://u11150003-arch.github.io/winter-bday-info/</div>
       
-      <!-- 語言切換選單 -->
-      <div class="lang-select-box">
-        <label for="lang-select">🌐 Lang:</label>
+      <!-- 語言切換選單 (預設繁中) -->
+      <div class="lang-box">
+        <label for="lang-select">🌐</label>
         <select id="lang-select" onchange="changeLanguage(this.value)">
           <option value="zh-TW" selected>繁體中文</option>
           <option value="en">English</option>
@@ -371,382 +525,417 @@
       </div>
     </div>
 
-    <!-- 管理員控制橫幅 (預設隱藏) -->
-    <div id="admin-banner" class="admin-bar">
-      <div>
-        <strong>🛠️ 管理員模式已開啟 (Admin Mode Enabled)</strong>
-        <p style="font-size: 0.8rem; color: #555;">點擊文字即可直接編輯內容，點擊圖片更換圖片 URL。</p>
-      </div>
-      <div style="display:flex; gap: 8px;">
-        <button class="retro-btn" onclick="saveAdminData()">💾 <span id="txt-save">儲存變更</span></button>
-        <button class="retro-btn" onclick="resetAdminData()">↺ <span id="txt-reset">還原預設</span></button>
-        <button class="retro-btn" onclick="exitAdmin()">✕ <span id="txt-exit">退出</span></button>
-      </div>
-    </div>
-
-    <!-- 網頁主要內容容器 -->
-    <div class="window-content">
-
-      <!-- 1. 最重要：WINTER 桌機核心入口 -->
-      <div class="highlight-card">
-        <div class="highlight-header" id="txt-desktop-header">
-          ★ 最重要推薦 / FEATURED SYSTEM
+    <!-- 主卡片 (GitHub Repo 風格) -->
+    <div class="repo-card">
+      
+      <!-- 仿 GitHub 倉庫檔案列表（點擊均在新分頁開啟） -->
+      <div class="file-table-wrap">
+        <div class="file-table-header">
+          <span>📁 u11150003-arch / winter-bday-info</span>
+          <span style="font-weight: normal;">Latest Project Update</span>
         </div>
-        <div class="highlight-body">
-          <div class="highlight-desc">
-            <h2 style="margin-bottom: 6px; font-size: 1.3rem;" id="txt-desktop-title">💻 WINTER 桌機系統 (Winter OS Desktop)</h2>
-            <p id="txt-desktop-desc">
-              整合生咖預約導覽、生咖資訊、基本應援周邊、LuckyDraw 抽卡與互動網頁集合，點擊資料夾即可深入探索所有專案內容！
-            </p>
-          </div>
-          <a href="https://u11150003-arch.github.io/2027-winter-bday-desktop/" target="_blank" rel="noopener noreferrer" class="retro-btn" style="padding: 10px 18px; font-weight: bold; background: #ffffd0;">
-            🚀 <span id="txt-desktop-btn">開啟桌機整合系統 ↗</span>
-          </a>
-        </div>
-      </div>
+        
+        <!-- WINTER 桌機 (最重要) -->
+        <a href="https://u11150003-arch.github.io/2027-winter-bday-desktop/" target="_blank" rel="noopener noreferrer" class="file-row">
+          <span class="file-name">💻 <b id="txt-file-desktop">winter-desktop-os</b></span>
+          <span class="file-commit" id="txt-commit-desktop">整合全部生咖、抽卡、應援物與互動網頁 ↗</span>
+        </a>
 
-      <!-- 2. 其他重要網頁捷徑 (分頁跳轉) -->
-      <div class="links-grid">
-        <!-- 生咖預約 -->
-        <div class="sub-card">
-          <div>
-            <h3 id="txt-sub-res-title">🎟️ 生咖預約 (Reservation)</h3>
-            <p id="txt-sub-res-desc">生日應援咖啡廳場次預約登記、入場資格確認系統。</p>
-          </div>
-          <a href="https://wintertst0101.netlify.app/" target="_blank" rel="noopener noreferrer" class="retro-btn">
-            <span id="txt-enter">前往系統 ↗</span>
-          </a>
-        </div>
+        <!-- 生咖預約 (次重要) -->
+        <a href="https://wintertst0101.netlify.app/" target="_blank" rel="noopener noreferrer" class="file-row">
+          <span class="file-name">🎟️ <b id="txt-file-res">cafe-reservation</b></span>
+          <span class="file-commit" id="txt-commit-res">生咖場次預約系統 ↗</span>
+        </a>
 
-        <!-- CD PLAYER -->
-        <div class="sub-card">
-          <div>
-            <h3 id="txt-sub-cd-title">💿 WINTER CD PLAYER</h3>
-            <p id="txt-sub-cd-desc">復古 CD 隨身聽音樂互動網頁，點選播放精選音樂。</p>
-          </div>
-          <a href="https://u11150003-arch.github.io/winter-cd-player/" target="_blank" rel="noopener noreferrer" class="retro-btn">
-            <span id="txt-enter-cd">進入播放器 ↗</span>
-          </a>
-        </div>
+        <!-- CD Player -->
+        <a href="https://u11150003-arch.github.io/winter-cd-player/" target="_blank" rel="noopener noreferrer" class="file-row">
+          <span class="file-name">💿 <b id="txt-file-cd">winter-cd-player</b></span>
+          <span class="file-commit" id="txt-commit-cd">復古隨身聽音樂 CD 互動網頁 ↗</span>
+        </a>
 
         <!-- WILDWEST -->
-        <div class="sub-card">
-          <div>
-            <h3 id="txt-sub-west-title">🤠 WINTER WILDWEST</h3>
-            <p id="txt-sub-west-desc">西部荒野概念風格主題視訊互動網頁體驗。</p>
+        <a href="https://u11150003-arch.github.io/winter-wildwest/" target="_blank" rel="noopener noreferrer" class="file-row">
+          <span class="file-name">🤠 <b id="txt-file-west">winter-wildwest</b></span>
+          <span class="file-commit" id="txt-commit-west">西部荒野主題視訊互動網頁 ↗</span>
+        </a>
+      </div>
+
+      <!-- README 檢視視窗 -->
+      <div class="readme-wrapper">
+        <div class="readme-tabs-header">
+          <div class="readme-tabs-left">
+            <span class="readme-tab-active">📖 README.md</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--morandi-sub);">| WINTER BDAY PROJECT</span>
           </div>
-          <a href="https://u11150003-arch.github.io/winter-wildwest/" target="_blank" rel="noopener noreferrer" class="retro-btn">
-            <span id="txt-enter-west">進入視訊網頁 ↗</span>
+        </div>
+
+        <!-- 管理員模式控制列 (預設隱藏) -->
+        <div id="admin-banner" class="admin-banner">
+          <div>
+            <strong>🛠️ 管理員模式已開啟 (Admin Mode Enabled)</strong>
+            <p style="font-size: 0.8rem; color: #5d4037;">點擊文字即可編輯；點擊相片左上角可更換或新增多張圖片網址。</p>
+          </div>
+          <div style="display:flex; gap: 8px; flex-wrap: wrap;">
+            <button class="nav-btn" onclick="addNewCard()">➕ <span id="txt-add-card">新增資訊框格</span></button>
+            <button class="nav-btn" onclick="saveData()">💾 <span id="txt-save">儲存變更</span></button>
+            <button class="nav-btn" onclick="resetData()">↺ <span id="txt-reset">還原預設</span></button>
+            <button class="nav-btn" onclick="exitAdmin()">✕ <span id="txt-exit">退出</span></button>
+          </div>
+        </div>
+
+        <!-- 主打焦點卡片：WINTER 虛擬桌機系統 -->
+        <div class="hero-banner">
+          <span class="hero-tag">FEATURED PORTAL</span>
+          <h2 class="hero-title" id="txt-hero-title">WINTER 虛擬桌機整合系統</h2>
+          <p class="hero-desc" id="txt-hero-desc">
+            最核心的整合入口！包含生咖預約、生咖資訊、基本應援周邊、LuckyDraw 抽卡、以及各項互動式網頁，可點擊桌機資料夾深入探索。
+          </p>
+          <a href="https://u11150003-arch.github.io/2027-winter-bday-desktop/" target="_blank" rel="noopener noreferrer" class="btn-action">
+            <span id="txt-hero-btn">進入桌機系統 ↗</span>
           </a>
         </div>
-      </div>
 
-      <!-- 3. 生咖圖文區塊：生咖資訊 / 基本應援物 / LuckyDraw -->
-      <div class="info-section-title">
-        📁 <span id="txt-section-info">生咖即時活動圖文資訊 (Live Info & Goods)</span>
-      </div>
-
-      <div class="info-grid">
-        <!-- (1) 生咖資訊 -->
-        <div class="info-box">
-          <div class="info-box-title" id="txt-card-cafe-title">📍 生咖資訊 (Cafe Info)</div>
-          <div class="info-image-container" onclick="handleImgClick('img-cafe')">
-            <img id="img-cafe" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="Cafe Info">
-          </div>
-          <div class="info-text-content editable-target" id="text-cafe">
-【活動地點】台北市某某咖啡廳
-【活動日期】2027.01.01 - 01.03
-【營業時間】11:00 - 19:00
-【入場須知】低消一杯飲品，請遵守現場工作人員動線引導。
-          </div>
+        <!-- 圖文展示卡片群 (生咖資訊 / 基本應援物 / LuckyDraw / 自訂框格) -->
+        <div class="section-bar">
+          <div class="section-title" id="txt-sec-title">📍 生咖活動圖文專區</div>
         </div>
 
-        <!-- (2) 基本應援物 -->
-        <div class="info-box">
-          <div class="info-box-title" id="txt-card-goods-title">🎁 基本應援物 (Special Gifts)</div>
-          <div class="info-image-container" onclick="handleImgClick('img-goods')">
-            <img id="img-goods" src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80" alt="Special Gifts">
-          </div>
-          <div class="info-text-content editable-target" id="text-goods">
-【基本特典包含】
-• 紀念紙杯套 x 1
-• Winter 限定明信片組 (2款入)
-• 拍立得透卡 x 1
-• 隨身貼紙包 (全5款隨機2款)
-*每日數量有限，發完為止。
-          </div>
+        <div class="cards-grid" id="cards-container">
+          <!-- 框格內容由 JavaScript 根據儲存資料動態渲染 -->
         </div>
 
-        <!-- (3) LuckyDraw -->
-        <div class="info-box">
-          <div class="info-box-title" id="txt-card-draw-title">⭐ LuckyDraw (抽卡活動)</div>
-          <div class="info-image-container" onclick="handleImgClick('img-draw')">
-            <img id="img-draw" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80" alt="LuckyDraw">
-          </div>
-          <div class="info-text-content editable-target" id="text-draw">
-【幸運抽卡規則】
-• 凡消費限定套餐即可獲得 1 次抽獎機會。
-• 特賞：未公開拍立得相片
-• 一等賞：冬日壓克力立牌
-• 二等賞：雷射閃卡全套組
-• 參與賞：限定圓形胸章
-          </div>
-        </div>
       </div>
-
     </div>
   </div>
 
-  <!-- 復古 Windows 底部工作列 -->
+  <!-- 底部 Start 工作列 -->
   <div class="taskbar">
-    <div class="taskbar-left">
-      <button class="retro-btn start-btn" onclick="toggleAdminPrompt()">
-        🪟 <b>Start</b>
+    <div style="position: relative;">
+      <button class="taskbar-btn" onclick="toggleStartMenu()">
+        ⭐ Start
       </button>
-      <button class="retro-btn" onclick="toggleAdminPrompt()" id="btn-admin-switch">
-        🔑 管理員模式 (0401)
-      </button>
+      
+      <!-- Start 選單 (點擊展開跳轉) -->
+      <div id="start-menu" class="start-menu">
+        <div class="start-menu-header">WINTER PORTAL</div>
+        <a href="https://wintertst0101.netlify.app/" target="_blank" rel="noopener noreferrer" class="start-item">
+          🎟️ 生咖預約 (Reservation) ↗
+        </a>
+        <a href="https://u11150003-arch.github.io/2027-winter-bday-desktop/" target="_blank" rel="noopener noreferrer" class="start-item">
+          💻 WINTER 桌機系統 ↗
+        </a>
+        <div class="start-item" onclick="promptAdminLogin(); toggleStartMenu();">
+          🔑 管理員模式
+        </div>
+      </div>
     </div>
+
+    <!-- 右側版權宣告與管理員登入入口（不顯示密碼） -->
     <div class="taskbar-right">
-      <span class="copyright-tag">© : winter_tst</span>
-      <span id="retro-clock">12:00 PM</span>
+      <span style="cursor: pointer; opacity: 0.85;" onclick="promptAdminLogin()" title="Admin Login">🔑 管理員模式</span>
+      <span>© : winter_tst</span>
     </div>
   </div>
 
   <script>
-    // 1. 語系辭典定義
-    const i18n = {
+    // 預設卡片資料（支援多張相片）
+    const defaultCards = [
+      {
+        id: 'card-cafe',
+        title: '📍 生咖資訊 (Cafe Info)',
+        images: [
+          'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80'
+        ],
+        text: `【活動地點】台北市某某咖啡廳\n【活動日期】2027.01.01 - 01.03\n【營業時間】11:00 - 19:00\n【入場須知】低消一杯飲品，請遵守現場工作人員動線引導。`
+      },
+      {
+        id: 'card-goods',
+        title: '🎁 基本應援物 (Special Gifts)',
+        images: [
+          'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80'
+        ],
+        text: `【基本特典包含】\n• 紀念紙杯套 x 1\n• Winter 限定明信片組 (2款入)\n• 拍立得透卡 x 1\n• 隨身貼紙包 (全5款隨機2款)\n*每日數量有限，發完為止。`
+      },
+      {
+        id: 'card-draw',
+        title: '⭐ LuckyDraw (抽卡活動)',
+        images: [
+          'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80'
+        ],
+        text: `【幸運抽卡規則】\n• 凡消費限定套餐即可獲得 1 次抽獎機會。\n• 特賞：未公開拍立得相片\n• 一等賞：冬日壓克力立牌\n• 二等賞：雷射閃卡全套組\n• 參與賞：限定圓形胸章`
+      }
+    ];
+
+    let currentCards = [];
+    let imagePointers = {}; // 追蹤卡片當前顯示圖片 index
+    let isAdmin = false;
+
+    // 多語系切換定義
+    const translations = {
       'zh-TW': {
-        appTitle: 'WINTER生咖資訊網 - [Winter Cafe Information Portal]',
-        back: '後退',
-        forward: '前進',
-        refresh: '重新整理',
-        desktopHeader: '★ 最重要推薦 / FEATURED SYSTEM',
-        desktopTitle: '💻 WINTER 桌機系統 (Winter OS Desktop)',
-        desktopDesc: '整合生咖預約導覽、生咖資訊、基本應援周邊、LuckyDraw 抽卡與互動網頁集合，點擊資料夾即可深入探索所有專案內容！',
-        desktopBtn: '開啟桌機整合系統 ↗',
-        subResTitle: '🎟️ 生咖預約 (Reservation)',
-        subResDesc: '生日應援咖啡廳場次預約登記、入場資格確認系統。',
-        subCdTitle: '💿 WINTER CD PLAYER',
-        subCdDesc: '復古 CD 隨身聽音樂互動網頁，點選播放精選音樂。',
-        subWestTitle: '🤠 WINTER WILDWEST',
-        subWestDesc: '西部荒野概念風格主題視訊互動網頁體驗。',
-        enter: '前往系統 ↗',
-        sectionInfo: '📁 生咖即時活動圖文資訊 (Live Info & Goods)',
-        cardCafeTitle: '📍 生咖資訊 (Cafe Info)',
-        cardGoodsTitle: '🎁 基本應援物 (Special Gifts)',
-        cardDrawTitle: '⭐ LuckyDraw (抽卡活動)',
-        adminBtn: '🔑 管理員模式 (0401)',
-        save: '儲存變更',
-        reset: '還原預設',
-        exit: '退出'
+        back: '後退', forward: '前進', reload: '重新整理',
+        fileDesktop: 'winter-desktop-os', commitDesktop: '整合全部生咖、抽卡、應援物與互動網頁 ↗',
+        fileRes: 'cafe-reservation', commitRes: '生咖場次預約系統 ↗',
+        fileCd: 'winter-cd-player', commitCd: '復古隨身聽音樂 CD 互動網頁 ↗',
+        fileWest: 'winter-wildwest', commitWest: '西部荒野主題視訊互動網頁 ↗',
+        heroTitle: 'WINTER 虛擬桌機整合系統',
+        heroDesc: '最核心的整合入口！包含生咖預約、生咖資訊、基本應援周邊、LuckyDraw 抽卡、以及各項互動式網頁，可點擊桌機資料夾深入探索。',
+        heroBtn: '進入桌機系統 ↗',
+        secTitle: '📍 生咖活動圖文專區',
+        addCard: '新增資訊框格', save: '儲存變更', reset: '還原預設', exit: '退出'
       },
       'en': {
-        appTitle: 'WINTER Birthday Cafe Info Hub',
-        back: 'Back',
-        forward: 'Forward',
-        refresh: 'Refresh',
-        desktopHeader: '★ FEATURED SYSTEM / PRIMARY PORTAL',
-        desktopTitle: '💻 WINTER Desktop System',
-        desktopDesc: 'Integrated portal for reservation, cafe details, special gifts, LuckyDraw, and interactive web games.',
-        desktopBtn: 'Launch Desktop ↗',
-        subResTitle: '🎟️ Cafe Reservation',
-        subResDesc: 'Session booking and confirmation system for Winter Birthday Cafe.',
-        subCdTitle: '💿 WINTER CD PLAYER',
-        subCdDesc: 'Retro portable CD player interactive music player.',
-        subWestTitle: '🤠 WINTER WILDWEST',
-        subWestDesc: 'Western frontier themed interactive video showcase.',
-        enter: 'Open ↗',
-        sectionInfo: '📁 Cafe Live Information & Gifts',
-        cardCafeTitle: '📍 Cafe Details',
-        cardGoodsTitle: '🎁 Special Gifts',
-        cardDrawTitle: '⭐ LuckyDraw Event',
-        adminBtn: '🔑 Admin Mode (0401)',
-        save: 'Save',
-        reset: 'Reset',
-        exit: 'Exit'
+        back: 'Back', forward: 'Forward', reload: 'Reload',
+        fileDesktop: 'winter-desktop-os', commitDesktop: 'Hub for reservation, gifts, LuckyDraw & games ↗',
+        fileRes: 'cafe-reservation', commitRes: 'Birthday Cafe Reservation System ↗',
+        fileCd: 'winter-cd-player', commitCd: 'Retro CD Player interactive music ↗',
+        fileWest: 'winter-wildwest', commitWest: 'Wild West themed video web ↗',
+        heroTitle: 'WINTER Virtual Desktop Portal',
+        heroDesc: 'The primary hub integrating cafe reservations, event details, gifts, LuckyDraw, and interactive features.',
+        heroBtn: 'Launch Desktop ↗',
+        secTitle: '📍 Cafe Details & Goods',
+        addCard: 'Add Card', save: 'Save', reset: 'Reset', exit: 'Exit'
       },
       'ko': {
-        appTitle: 'WINTER 생일카페 정보 포털',
-        back: '뒤로',
-        forward: '앞으로',
-        refresh: '새로고침',
-        desktopHeader: '★ 메인 추천 시스템 / FEATURED SYSTEM',
-        desktopTitle: '💻 WINTER 데스크탑 시스템',
-        desktopDesc: '생카 예약, 카페 정보, 기본 특전, 럭키드로우 및 인터랙티브 웹을 모두 담은 종합 데스크탑 시스템!',
-        desktopBtn: '데스크탑 열기 ↗',
-        subResTitle: '🎟️ 생카 예약 시스템',
-        subResDesc: '윈터 생일 카페 회차 예약 및 입장 확인 시스템.',
-        subCdTitle: '💿 WINTER CD PLAYER',
-        subCdDesc: '레트로 감성의 휴대용 CD 플레이어 음악 인터랙티브 웹.',
-        subWestTitle: '🤠 WINTER WILDWEST',
-        subWestDesc: '웨스턴 콘셉트의 비디오 인터랙티브 웹 체험.',
-        enter: '이동하기 ↗',
-        sectionInfo: '📁 생카 현장 정보 및 특전 안내',
-        cardCafeTitle: '📍 카페 안내 (Cafe Info)',
-        cardGoodsTitle: '🎁 기본 특전 (Special Gifts)',
-        cardDrawTitle: '⭐ 럭키드로우 (LuckyDraw)',
-        adminBtn: '🔑 관리자 모드 (0401)',
-        save: '저장',
-        reset: '초기화',
-        exit: '종료'
+        back: '뒤로', forward: '앞으로', reload: '새로고침',
+        fileDesktop: 'winter-desktop-os', commitDesktop: '생카 예약, 특전, 럭키드로우 및 웹게임 통합 ↗',
+        fileRes: 'cafe-reservation', commitRes: '생일카페 회차 예약 시스템 ↗',
+        fileCd: 'winter-cd-player', commitCd: '레트로 CD 플레이어 음악 인터랙티브 ↗',
+        fileWest: 'winter-wildwest', commitWest: '웨스턴 콘셉트 비디오 인터랙티브 ↗',
+        heroTitle: 'WINTER 데스크탑 통합 시스템',
+        heroDesc: '생카 예약, 카페 상세 정보, 기본 특전, 럭키드로우 및 웹게임을 모두 모은 종합 포털입니다.',
+        heroBtn: '데스크탑 시스템 열기 ↗',
+        secTitle: '📍 생카 상세 및 특전 안내',
+        addCard: '박스 추가', save: '저장', reset: '초기화', exit: '종료'
       },
       'ja': {
-        appTitle: 'WINTER センイルカフェ総合案内所',
-        back: '戻る',
-        forward: '進む',
-        refresh: '更新',
-        desktopHeader: '★ 最重要おすすめ / FEATURED SYSTEM',
-        desktopTitle: '💻 WINTER デスクトップシステム',
-        desktopDesc: 'カフェ予約、イベント案内、基本特典、ラッキードロー、体験型Webを一つに統合したデスクトップ環境です。',
-        desktopBtn: 'デスクトップを開く ↗',
-        subResTitle: '🎟️ カフェ事前予約',
-        subResDesc: 'センイルカフェの各回予約および入場確認システム。',
-        subCdTitle: '💿 WINTER CD PLAYER',
-        subCdDesc: 'レトロなCDプレーヤー型インタラクティブ音楽Web。',
-        subWestTitle: '🤠 WINTER WILDWEST',
-        subWestDesc: 'ウエスタンコンセプトの動画インタラクティブWeb。',
-        enter: '開く ↗',
-        sectionInfo: '📁 カフェ詳細・特典案内 (Live Info & Goods)',
-        cardCafeTitle: '📍 カフェ案内 (Cafe Info)',
-        cardGoodsTitle: '🎁 基本特典 (Special Gifts)',
-        cardDrawTitle: '⭐ ラッキードロー (LuckyDraw)',
-        adminBtn: '🔑 管理者モード (0401)',
-        save: '保存',
-        reset: 'リセット',
-        exit: '終了'
+        back: '戻る', forward: '進む', reload: '更新',
+        fileDesktop: 'winter-desktop-os', commitDesktop: '予約・特典・ラッキードロー・Web体験を網羅 ↗',
+        fileRes: 'cafe-reservation', commitRes: 'カフェ予約システム ↗',
+        fileCd: 'winter-cd-player', commitCd: 'レトロCDプレーヤー音楽Web ↗',
+        fileWest: 'winter-wildwest', commitWest: 'ウエスタン風動画インタラクティブ ↗',
+        heroTitle: 'WINTER デスクトップ総合案内',
+        heroDesc: 'カフェ事前予約、イベント案内、特典、ラッキードロー、体験型Webを一つに統合したメインシステムです。',
+        heroBtn: 'デスクトップを開く ↗',
+        secTitle: '📍 カフェ詳細・特典エリア',
+        addCard: '新規追加', save: '保存', reset: 'リセット', exit: '終了'
       }
     };
 
-    // 切換語言
     function changeLanguage(lang) {
-      const data = i18n[lang] || i18n['zh-TW'];
-      document.getElementById('txt-app-title').textContent = data.appTitle;
-      document.getElementById('txt-back').textContent = data.back;
-      document.getElementById('txt-forward').textContent = data.forward;
-      document.getElementById('txt-refresh').textContent = data.refresh;
-      document.getElementById('txt-desktop-header').textContent = data.desktopHeader;
-      document.getElementById('txt-desktop-title').textContent = data.desktopTitle;
-      document.getElementById('txt-desktop-desc').textContent = data.desktopDesc;
-      document.getElementById('txt-desktop-btn').textContent = data.desktopBtn;
-      document.getElementById('txt-sub-res-title').textContent = data.subResTitle;
-      document.getElementById('txt-sub-res-desc').textContent = data.subResDesc;
-      document.getElementById('txt-sub-cd-title').textContent = data.subCdTitle;
-      document.getElementById('txt-sub-cd-desc').textContent = data.subCdDesc;
-      document.getElementById('txt-sub-west-title').textContent = data.subWestTitle;
-      document.getElementById('txt-sub-west-desc').textContent = data.subWestDesc;
-      document.getElementById('txt-enter').textContent = data.enter;
-      document.getElementById('txt-enter-cd').textContent = data.enter;
-      document.getElementById('txt-enter-west').textContent = data.enter;
-      document.getElementById('txt-section-info').textContent = data.sectionInfo;
-      document.getElementById('txt-card-cafe-title').textContent = data.cardCafeTitle;
-      document.getElementById('txt-card-goods-title').textContent = data.cardGoodsTitle;
-      document.getElementById('txt-card-draw-title').textContent = data.cardDrawTitle;
-      document.getElementById('btn-admin-switch').textContent = data.adminBtn;
-      document.getElementById('txt-save').textContent = data.save;
-      document.getElementById('txt-reset').textContent = data.reset;
-      document.getElementById('txt-exit').textContent = data.exit;
+      const t = translations[lang] || translations['zh-TW'];
+      document.getElementById('txt-back').textContent = t.back;
+      document.getElementById('txt-forward').textContent = t.forward;
+      document.getElementById('txt-reload').textContent = t.reload;
+      document.getElementById('txt-commit-desktop').textContent = t.commitDesktop;
+      document.getElementById('txt-commit-res').textContent = t.commitRes;
+      document.getElementById('txt-commit-cd').textContent = t.commitCd;
+      document.getElementById('txt-commit-west').textContent = t.commitWest;
+      document.getElementById('txt-hero-title').textContent = t.heroTitle;
+      document.getElementById('txt-hero-desc').textContent = t.heroDesc;
+      document.getElementById('txt-hero-btn').textContent = t.heroBtn;
+      document.getElementById('txt-sec-title').textContent = t.secTitle;
+      document.getElementById('txt-add-card').textContent = t.addCard;
+      document.getElementById('txt-save').textContent = t.save;
+      document.getElementById('txt-reset').textContent = t.reset;
+      document.getElementById('txt-exit').textContent = t.exit;
     }
 
-    // 2. 時鐘顯示
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      document.getElementById('retro-clock').textContent = `${hours}:${minutes} ${ampm}`;
+    // 渲染卡片清單
+    function renderCards() {
+      const container = document.getElementById('cards-container');
+      container.innerHTML = '';
+
+      currentCards.forEach((card) => {
+        if (imagePointers[card.id] === undefined) {
+          imagePointers[card.id] = 0;
+        }
+        const imgIdx = imagePointers[card.id];
+        const totalImg = (card.images && card.images.length > 0) ? card.images.length : 1;
+        const currentSrc = (card.images && card.images[imgIdx]) ? card.images[imgIdx] : 'https://via.placeholder.com/600x400?text=No+Image';
+
+        const cardEl = document.createElement('article');
+        cardEl.className = 'info-card';
+        cardEl.id = `card-el-${card.id}`;
+
+        cardEl.innerHTML = `
+          <div class="info-card-header">
+            <span class="card-title-text ${isAdmin ? 'editing-active' : ''}" 
+                  id="title-${card.id}" 
+                  contenteditable="${isAdmin}">${escapeHtml(card.title)}</span>
+            <button class="delete-card-btn" style="display: ${isAdmin ? 'inline-block' : 'none'}" onclick="deleteCard('${card.id}')">刪除</button>
+          </div>
+
+          <div class="carousel-wrap">
+            <img id="img-${card.id}" src="${currentSrc}" alt="${escapeHtml(card.title)}">
+            
+            <!-- 上一張 / 下一張 切換按鈕 -->
+            <button class="carousel-nav carousel-prev" onclick="prevImage('${card.id}')" title="Previous Image">◀</button>
+            <button class="carousel-nav carousel-next" onclick="nextImage('${card.id}')" title="Next Image">▶</button>
+            <div class="carousel-indicator" id="indicator-${card.id}">${imgIdx + 1} / ${totalImg}</div>
+            
+            <div class="img-edit-prompt" style="display: ${isAdmin ? 'block' : 'none'}" onclick="manageCardImages('${card.id}')">
+              📷 編輯相片清單 (${totalImg}張)
+            </div>
+          </div>
+
+          <div class="info-card-text ${isAdmin ? 'editing-active' : ''}" 
+               id="text-${card.id}" 
+               contenteditable="${isAdmin}">${escapeHtml(card.text)}</div>
+        `;
+        container.appendChild(cardEl);
+      });
     }
-    setInterval(updateClock, 1000);
-    updateClock();
 
-    // 3. 管理員模式 (密碼 0401)
-    let isAdmin = false;
+    // 輪播切換：上一張、下一張
+    function prevImage(cardId) {
+      const card = currentCards.find(c => c.id === cardId);
+      if (!card || !card.images || card.images.length <= 1) return;
+      imagePointers[cardId] = (imagePointers[cardId] - 1 + card.images.length) % card.images.length;
+      updateCardImage(cardId);
+    }
 
-    function toggleAdminPrompt() {
+    function nextImage(cardId) {
+      const card = currentCards.find(c => c.id === cardId);
+      if (!card || !card.images || card.images.length <= 1) return;
+      imagePointers[cardId] = (imagePointers[cardId] + 1) % card.images.length;
+      updateCardImage(cardId);
+    }
+
+    function updateCardImage(cardId) {
+      const card = currentCards.find(c => c.id === cardId);
+      const idx = imagePointers[cardId];
+      const imgEl = document.getElementById(`img-${cardId}`);
+      const indicator = document.getElementById(`indicator-${cardId}`);
+      if (imgEl && card.images[idx]) {
+        imgEl.src = card.images[idx];
+      }
+      if (indicator) {
+        indicator.textContent = `${idx + 1} / ${card.images.length}`;
+      }
+    }
+
+    // Start 選單開關
+    function toggleStartMenu() {
+      const menu = document.getElementById('start-menu');
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+
+    document.addEventListener('click', (e) => {
+      const startMenu = document.getElementById('start-menu');
+      const startBtn = document.querySelector('.taskbar-btn');
+      if (startMenu && startBtn && !startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+        startMenu.style.display = 'none';
+      }
+    });
+
+    // 管理員登入模式（密碼 0401，不顯示密碼文字）
+    function promptAdminLogin() {
       if (isAdmin) {
-        alert('已經在管理員模式中！');
+        alert('目前已在管理員模式中！');
         return;
       }
       const pwd = prompt('請輸入管理員密碼：');
       if (pwd === '0401') {
         enableAdmin();
       } else if (pwd !== null) {
-        alert('密碼錯誤！存取被拒絕。');
+        alert('密碼錯誤！');
       }
     }
 
     function enableAdmin() {
       isAdmin = true;
       document.getElementById('admin-banner').style.display = 'flex';
-      
-      // 開啟內容編輯
-      document.querySelectorAll('.editable-target').forEach(el => {
-        el.contentEditable = "true";
-        el.classList.add('editable-active');
-      });
-
-      alert('管理員驗證成功！可直接點擊區塊文字進行編輯，點擊圖片可更換圖片網址。');
+      renderCards();
+      alert('管理員驗證成功！可直接點擊文字編輯，點擊「📷 編輯相片清單」更換/新增照片，或點擊「➕ 新增資訊框格」。');
     }
 
     function exitAdmin() {
       isAdmin = false;
       document.getElementById('admin-banner').style.display = 'none';
-      document.querySelectorAll('.editable-target').forEach(el => {
-        el.contentEditable = "false";
-        el.classList.remove('editable-active');
+      renderCards();
+    }
+
+    // 動態新增與刪除框格
+    function addNewCard() {
+      const title = prompt('請輸入新框格的標題 (例如：交通指引、生咖限定周邊)：', '📍 新活動框格');
+      if (!title) return;
+      const newId = 'card-' + Date.now();
+      currentCards.push({
+        id: newId,
+        title: title,
+        images: ['https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80'],
+        text: '請在此點擊輸入詳細說明內容...'
       });
+      imagePointers[newId] = 0;
+      renderCards();
     }
 
-    // 圖片更換
-    function handleImgClick(imgId) {
-      if (!isAdmin) return;
-      const targetImg = document.getElementById(imgId);
-      const newUrl = prompt('請輸入新的圖片網址 (URL)：', targetImg.src);
-      if (newUrl && newUrl.trim() !== '') {
-        targetImg.src = newUrl.trim();
+    function deleteCard(cardId) {
+      if (confirm('確定要刪除這個資訊框格嗎？')) {
+        currentCards = currentCards.filter(c => c.id !== cardId);
+        renderCards();
       }
     }
 
-    // 儲存至瀏覽器快取 (LocalStorage)
-    function saveAdminData() {
-      const payload = {
-        cafeText: document.getElementById('text-cafe').innerText,
-        goodsText: document.getElementById('text-goods').innerText,
-        drawText: document.getElementById('text-draw').innerText,
-        cafeImg: document.getElementById('img-cafe').src,
-        goodsImg: document.getElementById('img-goods').src,
-        drawImg: document.getElementById('img-draw').src
-      };
-      localStorage.setItem('winter_cafe_custom_data', JSON.stringify(payload));
-      alert('所有修改已成功儲存在此瀏覽器！');
-    }
-
-    // 還原預設值
-    function resetAdminData() {
-      if (confirm('確定要還原成初始預設的圖文資料嗎？')) {
-        localStorage.removeItem('winter_cafe_custom_data');
-        location.reload();
-      }
-    }
-
-    // 頁面載入時檢查是否有自訂資料
-    window.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('winter_cafe_custom_data');
-      if (saved) {
-        try {
-          const data = JSON.parse(saved);
-          if (data.cafeText) document.getElementById('text-cafe').innerText = data.cafeText;
-          if (data.goodsText) document.getElementById('text-goods').innerText = data.goodsText;
-          if (data.drawText) document.getElementById('text-draw').innerText = data.drawText;
-          if (data.cafeImg) document.getElementById('img-cafe').src = data.cafeImg;
-          if (data.goodsImg) document.getElementById('img-goods').src = data.goodsImg;
-          if (data.drawImg) document.getElementById('img-draw').src = data.drawImg;
-        } catch (e) {
-          console.error('讀取自訂資料失敗', e);
+    // 管理多張圖片清單
+    function manageCardImages(cardId) {
+      const card = currentCards.find(c => c.id === cardId);
+      if (!card) return;
+      const currentListStr = card.images.join('\n');
+      const input = prompt('請輸入圖片網址（每行一張網址）：', currentListStr);
+      if (input !== null) {
+        const urls = input.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+        if (urls.length > 0) {
+          card.images = urls;
+          imagePointers[cardId] = 0;
+          renderCards();
+        } else {
+          alert('請至少保留一張圖片網址！');
         }
       }
+    }
+
+    // 儲存與還原
+    function saveData() {
+      currentCards.forEach(card => {
+        const titleEl = document.getElementById(`title-${card.id}`);
+        const textEl = document.getElementById(`text-${card.id}`);
+        if (titleEl) card.title = titleEl.innerText;
+        if (textEl) card.text = textEl.innerText;
+      });
+
+      localStorage.setItem('winter_bday_cards_data', JSON.stringify(currentCards));
+      alert('所有修改已成功儲存至此瀏覽器！');
+    }
+
+    function resetData() {
+      if (confirm('確定要清除所有自訂資料並還原成預設內容嗎？')) {
+        localStorage.removeItem('winter_bday_cards_data');
+        currentCards = JSON.parse(JSON.stringify(defaultCards));
+        imagePointers = {};
+        renderCards();
+      }
+    }
+
+    function escapeHtml(text) {
+      return (text || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // 頁面初始化
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('winter_bday_cards_data');
+      if (saved) {
+        try {
+          currentCards = JSON.parse(saved);
+        } catch (e) {
+          currentCards = JSON.parse(JSON.stringify(defaultCards));
+        }
+      } else {
+        currentCards = JSON.parse(JSON.stringify(defaultCards));
+      }
+      renderCards();
     });
   </script>
 </body>
